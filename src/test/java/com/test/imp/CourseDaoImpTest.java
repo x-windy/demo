@@ -45,4 +45,31 @@ class CourseDaoImpTest {
             }
         }
     }
+
+    @Test
+    void queryByTeacherName() {
+        System.out.println(courseDaoImp.queryByTeacherName("张").size());
+    }
+
+    @Test
+    void queryTeacherByCourseNo() {
+
+    }
+
+    @Test
+    void inertCourse() {
+    }
+
+    @Test
+    void updateCourse() {
+    }
+
+    @Test
+    void deleteCourse() {
+    }
+
+    @Test
+    void queryCourseByCourseNo() {
+        System.out.println(courseDaoImp.queryCourseByCourseNo("D3232").getsCname());
+    }
 }
