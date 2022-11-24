@@ -1,4 +1,7 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.test.pojo.Course" %>
+<%@ page import="com.test.dao.CourseDao" %>
+<%@ page import="com.test.imp.CourseDaoImp" %><%--
   Created by IntelliJ IDEA.
   User: zq
   Date: 2022/11/15
@@ -27,19 +30,30 @@
         </tr>
         <tr>
             <td>开课日期</td>
-            <td><input type="text" name="dtOpenDate"></td>
+            <td><input type="date" name="dtOpenDate"></td>
         </tr>
         <tr>
             <td>教师</td>
-            <td><select name="sTeacher"></select></td>
+            <td><select name="sTeacher">
+                <%
+                    List<Course> list = CourseDaoImp.getInstance().queryAllCourse();
+                    if (list!=null && list.size()>0){
+                        for (Course course:list){
+                %>
+                             <option><%=course.getsTeacher()%></option>
+                <%
+                        }
+                }%>
+
+            </select></td>
         </tr>
         <tr>
             <td>周数</td>
-            <td><input type="text" name="iWeekCnt"></td>
+            <td><input type="number" name="iWeekCnt"></td>
         </tr>
         <tr>
             <td>在线学习链接</td>
-            <td><input type="text"></td>
+            <td><input type="text" name="sIndexURL"></td>
         </tr>
         <tr>
             <td>状态</td>
@@ -51,7 +65,7 @@
         </tr>
         <tr>
             <td>课程资源</td>
-            <td><input type="text"></td>
+            <td><input type="text" name="sUploadFile"></td>
         </tr>
         <tr>
             <th><input name="submit1" type="submit" value="提交">

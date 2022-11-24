@@ -14,18 +14,34 @@
   request.setCharacterEncoding("UTF-8");
   response.setContentType("text/html;charset=utf-8");
   List<Course> list = null;
+
   int iPage = 0;// 当前页
   int iPageCnt = 0;// 页数
   int iPageSize = 2;// 每页的数据量
+  list = CourseDaoImp.getInstance().queryAllCourse();
+  request.setAttribute("list",list);
+
+
   if (request.getParameter("strKey") != null && request.getParameter("action").equals("102")) {
     String strKey = request.getParameter("strKey");
+    String strType = request.getParameter("strType");
+
     session.setAttribute("strKey", strKey);
+
     System.out.println((String) session.getAttribute("strKey"));
-    CourseDaoImp courseDaoImp = new CourseDaoImp();
-    list = courseDaoImp.queryByCourseName((String) session.getAttribute("strKey"));
-    int total = list.size();
-    iPage=1;
-    iPageCnt = (int) Math.ceil((double)total/iPageSize);
+
+
+    if (strType.equals("sCname")){
+      list = CourseDaoImp.getInstance().queryByCourseName(strKey);
+      int total = list.size();
+      iPage=1;
+      iPageCnt = (int) Math.ceil((double)total/iPageSize);
+    }else if (strType.equals("sTeacher")){
+      list = CourseDaoImp.getInstance().queryByTeacherName(strKey);
+    }else {
+      System.out.println("错误");
+    }
+
   }
 
 %>
@@ -48,7 +64,7 @@
     </tr>
     <tr>
       <td>
-        <a href="sysAdm/addCourse.jsp" >增加</a>
+        <a href="http://localhost:8080/demo_war_exploded/addCourseServlet" >增加</a>
       </td>
       <form action="indexCourse.jsp?action=102" method="post" name="inqForm">
         <td>关键字:
@@ -79,19 +95,23 @@
       if (list != null && list.size() > 0) {
         for (Course course : list) {
     %>
-   <%-- <tr><td><%=course.getsCourseNo()%></td>
+    <tr><td><%=course.getsCourseNo()%></td>
       <td><%=course.getsCname()%></td>
       <td><%=course.getDtOpenDate()%></td>
       <td><%=course.getsTeacher()%></td>
       <td><%=course.getiWeekCnt()%></td>
       <td><%=course.getsIndexURL()%></td>
       <td><%=course.getsStatuse()%></td>
-    </tr>--%>
+      <td><a href="sysAdm/modiCourse.jsp?action=103&id=<%=course.getsCourseNo()%>">修改记录</a>&nbsp;
+        <a href="sysAdm/submitCourse.jsp?action=401&id=<%=course.getsCourseNo()%>">删除记录 </a>
+      </td>
+    </tr>
     <%
         }
-      }
+      }else {
     %>
-
+    <td>无信息</td>
+    <%}%>
     <th>当前页数<%=iPage%>/<%=iPageCnt%>&nbsp;
       <%if (iPage > 1) {
       %>

@@ -5,7 +5,7 @@ public class Course {
     private String sCname;
     private String dtOpenDate;
     private String sTeacher;
-    private String iWeekCnt;
+    private int iWeekCnt;
     private String sIndexURL;
     private String sStatuse;
 
@@ -41,11 +41,11 @@ public class Course {
         this.sTeacher = sTeacher;
     }
 
-    public String getiWeekCnt() {
+    public int getiWeekCnt() {
         return iWeekCnt;
     }
 
-    public void setiWeekCnt(String iWeekCnt) {
+    public void setiWeekCnt(int iWeekCnt) {
         this.iWeekCnt = iWeekCnt;
     }
 

@@ -72,4 +72,9 @@ class CourseDaoImpTest {
     void queryCourseByCourseNo() {
         System.out.println(courseDaoImp.queryCourseByCourseNo("D3232").getsCname());
     }
+
+    @Test
+    void queryAllCourse() {
+
+    }
 }

@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<h2>提交成功！</h2>
+<h2><%=request.getParameter("sCname")%>提交成功！</h2>
 </body>
 </html>
